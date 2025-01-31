@@ -16,9 +16,9 @@ class WordUtils {
             "٬": ","
         };
 
-        // تنظیم Fuse.js برای جستجوی نزدیک‌ترین کلمه
+        // تنظیم Fuse.js
         this.fuse = new Fuse(this.wordList, {
-            threshold: 0.3, // مقدار پایین‌تر یعنی دقت بیشتر
+            threshold: 0.5, // مقدار بالاتر برای انعطاف‌پذیری بیشتر
             includeScore: true
         });
     }
@@ -27,12 +27,14 @@ class WordUtils {
         return text.split("").map(char => this.translationMap[char] || char).join("");
     }
 
-    findClosestWord(inputWord, scoreThreshold = 70) {
+    findClosestWord(inputWord, scoreThreshold = 0.5) {
         const results = this.fuse.search(inputWord);
-        if (results.length > 0 && results[0].score * 100 < scoreThreshold) {
+        
+        if (results.length > 0 && results[0].score < scoreThreshold) {
             return results[0].item;
         }
         return null;
     }
-} export default WordUtils;
+}
 
+export default WordUtils;

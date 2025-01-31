@@ -21,13 +21,13 @@ export async function find_best_route (sourcex , destinationx , type_day , time)
     const source = wordutils.findClosestWord(sourcex);
     const destination = wordutils.findClosestWord(destinationx);
     if (source === destination) {
-        return {"status": true , 'isrouting' : false}
+        return {"status": true , 'isrouting' : "yes"}
     }
     if (!['عادی', 'پنجشنبه', 'جمعه'].includes(type_day)) {
         return {"status": true , 'isrouting' : false};
     }
     if (source === null || source === undefined || destination === null || destination === undefined) {
-        return {"status": true , 'isrouting' : false};
+        return {"status": true , 'isrouting' : "no"};
     }
     
 
@@ -160,4 +160,4 @@ export async function find_best_route (sourcex , destinationx , type_day , time)
 
 }
 
-// find_best_route("زمزم" , "تجریش" , "عادی").then(data => console.log(data));
+// find_best_route("ززم" , "تجریش" , "عادی").then(data => console.log(data));
