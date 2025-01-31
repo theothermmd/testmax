@@ -15,10 +15,10 @@ class DataManager {
 
     async init() {
 
-        this.stations = await this.loadStations('./stations.json');
+        this.stations = await this.loadStations('stations.json');
 
         for (let i of this.line_names) {
-            this.stations_times[i] = await this.loadStations(`./${i}.json`);
+            this.stations_times[i] = await this.loadStations(`${i}.json`);
         }
 
         this.loadnames();
