@@ -32,6 +32,7 @@ export async function find_best_route (source , destination , type_day , time) {
     
 
     let now = new Date();
+
     const start_time = new Date();
     const startTime = scheduleManager.parseTime("5:00");
     const endTime = scheduleManager.parseTime("23:00");
@@ -140,13 +141,15 @@ export async function find_best_route (source , destination , type_day , time) {
 
         }
     }
-    const travel_duration = ScheduleManager.parseTime(now) - start_time
+    const travel_duration_ms = scheduleManager.parseTime(now) - start_time;
+    const travel_hours = Math.floor(travel_duration_ms / (1000 * 60 * 60)); 
+    const travel_minutes = Math.floor((travel_duration_ms % (1000 * 60 * 60)) / (1000 * 60));
     return {
         "status": true,
         'isrouting' : true,
         "fail" : false,
-        "route": `${travel_duration}`,
-        "travel_duration": "",
+        "route": overview,
+        "travel_duration": `${travel_hours}:${travel_minutes.toString().length == 1 ? "0" + travel_minutes : travel_minutes}`,
         "travel_cost": travelInfo.check_cost(travel_cost),
         "travel_guide": travel_guide,
         "arrival times": now,
@@ -154,3 +157,4 @@ export async function find_best_route (source , destination , type_day , time) {
 
 }
 
+find_best_route("زمزم" , "تجریش" , "عادی").then(data => console.log(data));
