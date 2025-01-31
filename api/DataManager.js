@@ -5,6 +5,7 @@ import { join, dirname } from 'path';
 const __dirname = dirname(new URL(import.meta.url).pathname);
 class DataManager {
     constructor() {
+        console.log("Current directory:", __dirname);
         this.base_path = join(__dirname);
         this.stations = {};
         this.stations_times = {};
