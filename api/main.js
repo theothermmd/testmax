@@ -33,8 +33,11 @@ export async function find_best_route (sourcex , destinationx , type_day , time)
     let start_time = "";
     if (time == '') {
         now = new Date();
-        start_time = new Date();
+        now = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Tehran' }));
+        start_time = new Date(now);
+        
     } else {
+
         now = scheduleManager.parseTime(time);
         start_time = scheduleManager.parseTime(time);
     }
