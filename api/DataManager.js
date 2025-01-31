@@ -8,7 +8,7 @@ console.log("Current working directory:", process.cwd());
 console.log("Files in current directory:", readdirSync(process.cwd()));
 
 // اگر می‌خواهید پوشه‌های دیگر را هم بررسی کنید، می‌توانید مثل این استفاده کنید:
-console.log("Files in tmp directory:", readdirSync('/tmp'));
+console.log("Files in tmp directory:", readdirSync('/api'));
 
 const __dirname = dirname(new URL(import.meta.url).pathname);
 class DataManager {
