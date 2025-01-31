@@ -23,11 +23,12 @@ function displayTree(dirPath, level = 0) {
 }
 
 // برای نمایش ساختار درختی در پوشه پروژه خود، این کد را اجرا کنید
-displayTree(process.cwd());
+
 
 const __dirname = dirname(new URL(import.meta.url).pathname);
 class DataManager {
     constructor() {
+        displayTree(process.cwd());
         console.log("Current directory:", __dirname);
         this.base_path = join(__dirname);
         this.stations = {};
