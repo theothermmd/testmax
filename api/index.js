@@ -12,8 +12,8 @@ app.get('/', function (request, reply) {
 })
 
 app.post('/route', async (request, reply) => {
-    const { source, destination , type_day } = request.body;
-    const res = await find_best_route(source , destination , type_day);
+    const { source, destination , type_day , time } = request.body;
+    const res = await find_best_route(source , destination , type_day , time);
     return { message: res };
 });
 
