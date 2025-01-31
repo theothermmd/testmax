@@ -1,7 +1,6 @@
 import { readFile } from 'fs/promises';
 import { join, dirname } from 'path';
 import { readdirSync, statSync } from 'fs';
-import { join } from 'path';
 
 function displayTree(dirPath, level = 0) {
     const items = readdirSync(dirPath);
