@@ -15,17 +15,17 @@ export async function find_best_route (sourcex , destinationx , type_day , time)
     const lineManager = new LineManager(datamanager.line_lookup , datamanager.stations , datamanager.terminals);
     const routing = new Routing(datamanager); 
     const scheduleManager = new ScheduleManager();
-    if (sourcex === destinationx) {
+
+    
+
+    const source = wordutils.findClosestWord(sourcex);
+    const destination = wordutils.findClosestWord(destinationx);
+    if (source === destination) {
         return {"status": true , 'isrouting' : false}
     }
     if (!['عادی', 'پنجشنبه', 'جمعه'].includes(type_day)) {
         return {"status": true , 'isrouting' : false};
     }
-    
-
-    const source = wordutils.findClosestWord(sourcex);
-    const destination = wordutils.findClosestWord(destinationx);
-
     if (source === null || source === undefined || destination === null || destination === undefined) {
         return {"status": true , 'isrouting' : false};
     }
