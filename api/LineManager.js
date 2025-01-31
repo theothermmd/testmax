@@ -1,7 +1,7 @@
 import Datamanager from "./DataManager.js";
 import { readFile } from 'fs/promises';
 import { join } from 'path';
-
+const __dirname = dirname(new URL(import.meta.url).pathname);
 class LineManager {
 
     constructor (line_lookup , stations , terminals) {
