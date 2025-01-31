@@ -1,6 +1,7 @@
 import { readFile } from 'fs/promises';
 import { join } from 'path';
 
+const __dirname = dirname(new URL(import.meta.url).pathname);
 class DataManager {
     constructor() {
         this.base_path = join(__dirname);
