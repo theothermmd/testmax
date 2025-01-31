@@ -43,7 +43,7 @@ export async function find_best_route (sourcex , destinationx , type_day , time)
     const endTime = scheduleManager.parseTime("23:00");
     
     if (now.getTime() < startTime.getTime() || now.getTime() > endTime.getTime()) {
-        return {"status": true , 'isrouting' : "no service"};
+        return {"status": true , 'isrouting' : false , 'message' : "no_service"};
     }
     
     const route = routing.shortestPath(source, destination);
