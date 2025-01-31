@@ -32,6 +32,7 @@ export async function find_best_route (source , destination , type_day , time) {
     
 
     let now = new Date();
+    const start_time = new Date();
     const startTime = scheduleManager.parseTime("5:00");
     const endTime = scheduleManager.parseTime("23:00");
     
@@ -139,11 +140,13 @@ export async function find_best_route (source , destination , type_day , time) {
 
         }
     }
+    const travel_duration = ScheduleManager.parseTime(now) - start_time
     return {
         "status": true,
         'isrouting' : true,
         "fail" : false,
-        "route": overview,
+        "route": `${travel_duration}`,
+        "travel_duration": "",
         "travel_cost": travelInfo.check_cost(travel_cost),
         "travel_guide": travel_guide,
         "arrival times": now,
