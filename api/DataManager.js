@@ -1,32 +1,9 @@
-import { join } from 'path';
-import { readdirSync, statSync } from 'fs';
-import fetch from 'node-fetch';  // اگر از Node.js استفاده می‌کنید و `fetch` در دسترس نیست، این را اضافه کنید.
+import fetch from 'node-fetch';  
 
-const BASE_URL = 'https://testmax.vercel.app';  // URL پایه برای دسترسی به فایل‌ها
-
-function displayTree(dirPath, level = 0) {
-    const items = readdirSync(dirPath);
-
-    items.forEach(item => {
-        const fullPath = join(dirPath, item);
-        const stats = statSync(fullPath);
-
-        // چاپ فاصله‌ها برای نشان دادن سطح درخت
-        const indentation = ' '.repeat(level * 2);
-
-        if (stats.isDirectory()) {
-            console.log(`${indentation}📁 ${item}`);
-            // فراخوانی تابع به صورت بازگشتی برای دایرکتوری‌ها
-            displayTree(fullPath, level + 1);
-        } else {
-            console.log(`${indentation}📄 ${item}`);
-        }
-    });
-}
+const BASE_URL = 'https://testmax.vercel.app';  
 
 class DataManager {
     constructor() {
-        displayTree(process.cwd()); // برای نمایش ساختار درختی پوشه‌ها
         this.stations = {};
         this.stations_times = {};
         this.line_names = ["line_1", "line_2", "line_3", "line_4", "line_5", "line_6", "line_7", "line_parand"];
