@@ -27,7 +27,6 @@ export default async (req, res) => {
     app.server.emit('request', req, res);
 }
 
-import Fastify from 'fastify'
 
 
 
