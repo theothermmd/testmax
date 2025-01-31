@@ -29,16 +29,21 @@ export async function find_best_route (sourcex , destinationx , type_day , time)
     if (source === null || source === undefined || destination === null || destination === undefined) {
         return {"status": true , 'isrouting' : "no"};
     }
-    
+    let now = "";
+    let start_time = "";
+    if (time == '') {
+        now = new Date();
+        start_time = new Date();
+    } else {
+        now = scheduleManager.parseTime(time);
+        start_time = scheduleManager.parseTime(time);
+    }
 
-    let now = new Date();
-
-    const start_time = new Date();
     const startTime = scheduleManager.parseTime("5:00");
     const endTime = scheduleManager.parseTime("23:00");
     
     if (now.getTime() < startTime.getTime() || now.getTime() > endTime.getTime()) {
-        return {"status": true , 'isrouting' : false};
+        return {"status": true , 'isrouting' : "no service"};
     }
     
     const route = routing.shortestPath(source, destination);
@@ -146,6 +151,8 @@ export async function find_best_route (sourcex , destinationx , type_day , time)
     const travel_duration_ms = scheduleManager.parseTime(now) - start_time;
     const travel_hours = Math.floor(travel_duration_ms / (1000 * 60 * 60)); 
     const travel_minutes = Math.floor((travel_duration_ms % (1000 * 60 * 60)) / (1000 * 60));
+
+
     return {
         "status": true,
         'isrouting' : true,
@@ -160,4 +167,4 @@ export async function find_best_route (sourcex , destinationx , type_day , time)
 
 }
 
-// find_best_route("ززم" , "تجریش" , "عادی").then(data => console.log(data));
+find_best_route("ززم" , "تجریش" , "عادی" , "10:00").then(data => console.log(data));

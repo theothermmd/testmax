@@ -21,7 +21,7 @@ class ScheduleManager {
             }
             let next_time = this.parseTime(i);
             if (next_time > this.parseTime(current_time)) {
-                return `${next_time.getHours()}:${next_time.getMinutes()}`;
+                return `${next_time.getHours()}:${next_time.getMinutes().toString().length == 1 ? "0" + next_time.getMinutes() : next_time.getMinutes()}`;
             }
 
         }
