@@ -1,4 +1,5 @@
 import { readFile } from 'fs/promises';
+import { readdirSync } from 'fs';
 import { join, dirname } from 'path';
 // چاپ مسیر جاری
 console.log("Current working directory:", process.cwd());
