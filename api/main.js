@@ -35,7 +35,7 @@ export async function find_best_route (sourcex , destinationx , type_day , time)
         now = new Date();
         now = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Tehran' }));
         start_time = new Date(now);
-        
+
     } else {
 
         now = scheduleManager.parseTime(time);
@@ -170,4 +170,4 @@ export async function find_best_route (sourcex , destinationx , type_day , time)
 
 }
 
-// find_best_route("ززم" , "تجریش" , "عادی" , "10:00").then(data => console.log(data));
+find_best_route("ززم" , "پرند" , "پنجشنبه" , "10:00").then(data => console.log(data));
