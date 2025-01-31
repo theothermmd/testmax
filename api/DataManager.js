@@ -1,5 +1,6 @@
 import { readFile } from 'fs/promises';
-import { join } from 'path';
+import { join, dirname } from 'path';
+
 
 const __dirname = dirname(new URL(import.meta.url).pathname);
 class DataManager {
