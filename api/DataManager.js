@@ -1,14 +1,30 @@
 import { readFile } from 'fs/promises';
-import { readdirSync } from 'fs';
 import { join, dirname } from 'path';
-// چاپ مسیر جاری
-console.log("Current working directory:", process.cwd());
+import { readdirSync, statSync } from 'fs';
+import { join } from 'path';
 
-// نمایش محتوای پوشه فعلی
-console.log("Files in current directory:", readdirSync(process.cwd()));
+function displayTree(dirPath, level = 0) {
+    const items = readdirSync(dirPath);
 
-// اگر می‌خواهید پوشه‌های دیگر را هم بررسی کنید، می‌توانید مثل این استفاده کنید:
-console.log("Files in tmp directory:", readdirSync('/api'));
+    items.forEach(item => {
+        const fullPath = join(dirPath, item);
+        const stats = statSync(fullPath);
+
+        // چاپ فاصله‌ها برای نشان دادن سطح درخت
+        const indentation = ' '.repeat(level * 2);
+
+        if (stats.isDirectory()) {
+            console.log(`${indentation}📁 ${item}`);
+            // فراخوانی تابع به صورت بازگشتی برای دایرکتوری‌ها
+            displayTree(fullPath, level + 1);
+        } else {
+            console.log(`${indentation}📄 ${item}`);
+        }
+    });
+}
+
+// برای نمایش ساختار درختی در پوشه پروژه خود، این کد را اجرا کنید
+displayTree(process.cwd());
 
 const __dirname = dirname(new URL(import.meta.url).pathname);
 class DataManager {
