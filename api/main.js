@@ -1,9 +1,9 @@
-import Datamanager from './libs/Datamanager.js'
-import WordUtils from './libs/WordUtils.js'
-import LineManager from './libs/LineManager.js'
-import Routing from './libs/Routing.js'
-import ScheduleManager from './libs/ScheduleManager.js'
-import TravelInfo from './libs/TravelInfo.js'
+import Datamanager from './Datamanager.js'
+import WordUtils from './WordUtils.js'
+import LineManager from './LineManager.js'
+import Routing from './Routing.js'
+import ScheduleManager from './ScheduleManager.js'
+import TravelInfo from './TravelInfo.js'
 
 
 
