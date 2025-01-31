@@ -7,7 +7,7 @@ import TravelInfo from './TravelInfo.js'
 
 
 
-export async function find_best_route (source , destination , type_day , time) {
+export async function find_best_route (sourcex , destinationx , type_day , time) {
     const datamanager = new Datamanager();
     await datamanager.init();
     const travelInfo = new TravelInfo();
@@ -23,8 +23,8 @@ export async function find_best_route (source , destination , type_day , time) {
     }
     
 
-    source = wordutils.findClosestWord(source);
-    destination = wordutils.findClosestWord(destination);
+    const source = wordutils.findClosestWord(sourcex);
+    const destination = wordutils.findClosestWord(destinationx);
 
     if (source === null || source === undefined || destination === null || destination === undefined) {
         return {"status": true , 'isrouting' : false};
