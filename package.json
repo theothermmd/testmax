@@ -4,7 +4,8 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "fastify": "^4.25.2"
+    "fastify": "^4.25.2",
+    "fuse.js": "^7.0.0"
   },
   "type": "module"
 }
