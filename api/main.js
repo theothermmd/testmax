@@ -15,7 +15,7 @@ export async function find_best_route (sourcex , destinationx , type_day , time)
     const lineManager = new LineManager(datamanager.line_lookup , datamanager.stations , datamanager.terminals);
     const routing = new Routing(datamanager); 
     const scheduleManager = new ScheduleManager();
-    if (source === destination) {
+    if (sourcex === destinationx) {
         return {"status": true , 'isrouting' : false}
     }
     if (!['عادی', 'پنجشنبه', 'جمعه'].includes(type_day)) {
