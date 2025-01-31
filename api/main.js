@@ -48,6 +48,7 @@ export async function find_best_route (source , destination , type_day , time) {
     let travel_guide = [];
     let travel_cost = 0;
     let times = {};
+    let next_train = "";
     for (let i = 0; i < route.length; i++ ) {
         if (i + 1 < route.length) {
 
@@ -93,18 +94,19 @@ export async function find_best_route (source , destination , type_day , time) {
                         lineManager.get_line_for_station(route[i], route[i + 1]).replace("line_", ""),
                         terminal_direction
                     );
+
                 }
                 corrent_line = lineManager.get_line_for_station(route[i], route[i + 1]);
-                try {
-                    times = datamanager.stations_times[corrent_line][corrent_line][type_day][terminal_direction][route[i]]
-                } catch {
-                    console.log(corrent_line);
-                    console.log(type_day);
-                    console.log(terminal_direction);
-                    console.log(route[i]);
-                }
+
+                times = datamanager.stations_times[corrent_line][corrent_line][type_day][terminal_direction][route[i]]
+
                 
                 now = scheduleManager.get_next_time(times , now);
+                if (i ==0) {
+                    const next_temp = scheduleManager.parseTime(now) - start_time;
+                    const next_temp_m = Math.floor((next_temp % (1000 * 60 * 60)) / (1000 * 60));
+                    next_train = next_temp_m;
+                }
                 travelInfo.add_overview_entry(
                     overview,
                     route[i],
@@ -152,9 +154,10 @@ export async function find_best_route (source , destination , type_day , time) {
         "travel_duration": `${travel_hours}:${travel_minutes.toString().length == 1 ? "0" + travel_minutes : travel_minutes}`,
         "travel_cost": travelInfo.check_cost(travel_cost),
         "travel_guide": travel_guide,
-        "arrival times": now,
+        "next_train": next_train,
+        "arrival_times": now,
     };
 
 }
 
-find_best_route("زمزم" , "تجریش" , "عادی").then(data => console.log(data));
+// find_best_route("زمزم" , "تجریش" , "عادی").then(data => console.log(data));
