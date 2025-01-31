@@ -29,7 +29,6 @@ function displayTree(dirPath, level = 0) {
 class DataManager {
     constructor() {
         displayTree(process.cwd());
-        console.log("Current directory:", __dirname);
         this.base_path = join(__dirname);
         this.stations = {};
         this.stations_times = {};
