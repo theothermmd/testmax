@@ -29,7 +29,6 @@ function displayTree(dirPath, level = 0) {
 class DataManager {
     constructor() {
         displayTree(process.cwd());
-        this.base_path = join(__dirname);
         this.stations = {};
         this.stations_times = {};
         this.line_names = ["line_1", "line_2", "line_3", "line_4", "line_5", "line_6", "line_7", "line_parand"];
