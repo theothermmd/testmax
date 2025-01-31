@@ -167,4 +167,4 @@ export async function find_best_route (sourcex , destinationx , type_day , time)
 
 }
 
-find_best_route("ززم" , "تجریش" , "عادی" , "10:00").then(data => console.log(data));
+// find_best_route("ززم" , "تجریش" , "عادی" , "10:00").then(data => console.log(data));
