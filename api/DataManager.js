@@ -1,5 +1,5 @@
 import { readFile } from 'fs/promises';
-import { join, dirname } from 'path';
+import { join } from 'path';
 import { readdirSync, statSync } from 'fs';
 
 function displayTree(dirPath, level = 0) {
@@ -25,7 +25,7 @@ function displayTree(dirPath, level = 0) {
 // برای نمایش ساختار درختی در پوشه پروژه خود، این کد را اجرا کنید
 
 
-const __dirname = dirname(new URL(import.meta.url).pathname);
+
 class DataManager {
     constructor() {
         displayTree(process.cwd());
@@ -43,10 +43,10 @@ class DataManager {
 
     async init() {
 
-        this.stations = await this.loadStations(join(this.base_path, 'stations.json'));
+        this.stations = await this.loadStations('/stations.json');
 
         for (let i of this.line_names) {
-            this.stations_times[i] = await this.loadStations(join(this.base_path, `${i}.json`));
+            this.stations_times[i] = await this.loadStations(`/${i}.json`);
         }
 
         this.loadnames();
