@@ -1,5 +1,3 @@
-import Datamanager from "./DataManager.js";
-
 class LineManager {
 
     constructor (line_lookup , stations , terminals) {
@@ -50,19 +48,4 @@ class LineManager {
     }
 
 
-} 
-// async function find_best_route () {
-//     const datamanager = new Datamanager();
-//     await datamanager.init();
-//     const lineManager = new LineManager(datamanager.line_lookup , datamanager.stations , datamanager.terminals);
-//     console.log(lineManager.find_terminal_direction("line_3" , "زمزم" , "جوادیه"));
-
-
-
-// }
-
-// find_best_route();
-
-
-
-export default LineManager;
+} export default LineManager;

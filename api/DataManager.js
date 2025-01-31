@@ -14,9 +14,9 @@ class DataManager {
     }
 
     async init() {
-        this.stations = await this.loadStations('/stations.json');  // بارگذاری ایستگاه‌ها از URL
+        this.stations = await this.loadStations('/stations.json'); 
         for (let i of this.line_names) {
-            this.stations_times[i] = await this.loadStations(`/${i}.json`);  // بارگذاری زمان‌های ایستگاه‌ها از URL
+            this.stations_times[i] = await this.loadStations(`/${i}.json`); 
         }
         this.loadnames();
         this.loadline_loop();
@@ -42,17 +42,17 @@ class DataManager {
         }
     }
 
-    // تابعی برای بارگذاری فایل‌ها از URL
+
     async loadStations(filePath) {
         try {
-            const url = `${BASE_URL}${filePath}`;  // ترکیب URL پایه و مسیر فایل
+            const url = `${BASE_URL}${filePath}`;  
             const response = await fetch(url);
             
             if (!response.ok) {
                 throw new Error(`Failed to fetch file from URL: ${url}`);
             }
 
-            const data = await response.json();  // تبدیل داده‌ها به JSON
+            const data = await response.json(); 
             return data;
         } catch (error) {
             console.error('Error loading file from URL:', filePath, error);

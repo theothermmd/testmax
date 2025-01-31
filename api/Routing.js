@@ -1,4 +1,3 @@
-import Datamanager from "./DataManager.js";
 import LineManager from "./LineManager.js";
 import WordUtils from "./WordUtils.js";
 
