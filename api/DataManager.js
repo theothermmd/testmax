@@ -3,6 +3,7 @@ import { join } from 'path';
 
 class DataManager {
     constructor() {
+        this.base_path = join(__dirname);
         this.stations = {};
         this.stations_times = {};
         this.line_names = ["line_1", "line_2", "line_3", "line_4", "line_5", "line_6", "line_7", "line_parand"];
@@ -15,10 +16,10 @@ class DataManager {
 
     async init() {
 
-        this.stations = await this.loadStations('stations.json');
+        this.stations = await this.loadStations(join(this.base_path, 'stations.json'));
 
         for (let i of this.line_names) {
-            this.stations_times[i] = await this.loadStations(`${i}.json`);
+            this.stations_times[i] = await this.loadStations(join(this.base_path, `${i}.json`));
         }
 
         this.loadnames();
