@@ -1,4 +1,4 @@
-import Datamanager from './Datamanager.js'
+import Datamanager from './DataManager';
 
 class LineManager {
 

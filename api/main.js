@@ -1,4 +1,4 @@
-import Datamanager from './Datamanager.js'
+import Datamanager from "./DataManager.js";
 import WordUtils from './WordUtils.js'
 import LineManager from './LineManager.js'
 import Routing from './Routing.js'
