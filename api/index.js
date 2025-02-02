@@ -6,16 +6,7 @@ import {find_best_route} from "./main.js";
 const app = Fastify({
   logger: true,
 })
-await app.register(cors, {
-  origin: (origin, cb) => {
-    const hostname = new URL(origin).hostname
-    if(hostname === "*"){
-      cb(null, true)
-      return
-    }
-    cb(new Error("Not allowed"), false)
-  }
-})
+
 app.get('/', function (request, reply) {
   reply.send({ hello: 'world' })
 })
