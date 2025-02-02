@@ -1,5 +1,7 @@
 import LineManager from "./LineManager.js";
+import DataManager from "./DataManager.js";
 import WordUtils from "./WordUtils.js";
+
 
 class Routing {
     constructor(dataManager) {
@@ -92,10 +94,15 @@ class Routing {
 
         if (lineSource === lineDest) {
             this.graphRouting = this.graphs.lines[lineSource];
-        } else if (this.graphs.linetoline[`${lineSource}to${lineDest}`]) {
+            console.log("all1");
+
+            
+        } else if ( new Set( this.stations[ lineManager.get_line_for_station(source) ] ).has( this.stations[ lineManager.get_line_for_station(destination) ] ) ) {
             this.graphRouting = this.graphs.linetoline[`${lineSource}to${lineDest}`];
+            console.log("all2");
         } else {
             this.graphRouting = this.graphs.graph_all;
+            console.log("all3");
         }
 
         let queue = [[source, [source]]];
@@ -122,8 +129,8 @@ async function main() {
     const datamanager = new DataManager();
     await datamanager.init();
     let routing = new Routing(datamanager);
-    console.log(routing.shortestPath("نبرد", "تجریش"));
+    console.log(routing.shortestPath("زمزم", "ورزشگاه آزادی"));
 }
 
-
+main();
 export default Routing;

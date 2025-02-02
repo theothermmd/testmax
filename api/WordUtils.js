@@ -18,7 +18,7 @@ class WordUtils {
 
         // تنظیم Fuse.js
         this.fuse = new Fuse(this.wordList, {
-            threshold: 0.5, // مقدار بالاتر برای انعطاف‌پذیری بیشتر
+            threshold: 0.4, // مقدار بالاتر برای انعطاف‌پذیری بیشتر
             includeScore: true
         });
     }
@@ -27,7 +27,7 @@ class WordUtils {
         return text.split("").map(char => this.translationMap[char] || char).join("");
     }
 
-    findClosestWord(inputWord, scoreThreshold = 0.5) {
+    findClosestWord(inputWord, scoreThreshold = 0.4) {
         const results = this.fuse.search(inputWord);
         
         if (results.length > 0 && results[0].score < scoreThreshold) {

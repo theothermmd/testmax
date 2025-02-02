@@ -31,7 +31,7 @@ export async function find_best_route (sourcex , destinationx , type_day , time)
     }
     let now = "";
     let start_time = "";
-    if (time == '') {
+    if (time == '' || time == undefined) {
         now = new Date();
         now = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Tehran' }));
         start_time = new Date(now);
@@ -48,7 +48,6 @@ export async function find_best_route (sourcex , destinationx , type_day , time)
     if (now.getTime() < startTime.getTime() || now.getTime() > endTime.getTime()) {
         return {"status": true , 'isrouting' : false , 'message' : "no_service"};
     }
-    
     const route = routing.shortestPath(source, destination);
     let corrent_line = lineManager.get_line_for_station(route[0], route[1]);
     let terminal_direction= lineManager.find_terminal_direction(corrent_line, route[0], route[1]);
@@ -111,6 +110,7 @@ export async function find_best_route (sourcex , destinationx , type_day , time)
                 
                 now = scheduleManager.get_next_time(times , now);
                 if (i ==0) {
+
                     const next_temp = scheduleManager.parseTime(now) - start_time;
                     const next_temp_m = Math.floor((next_temp % (1000 * 60 * 60)) / (1000 * 60));
                     next_train = next_temp_m;
@@ -170,4 +170,4 @@ export async function find_best_route (sourcex , destinationx , type_day , time)
 
 }
 
-find_best_route("ززم" , "پرند" , "پنجشنبه" , "10:00").then(data => console.log(data));
+find_best_route("زمزم" , "ورزشگاه آزادی" , "عادی" , "" ).then(data => console.log(data));

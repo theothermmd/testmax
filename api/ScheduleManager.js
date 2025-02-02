@@ -12,6 +12,9 @@ class ScheduleManager {
     }
     
     get_next_time (station_times, current_time) {
+        if (typeof current_time  == Date) {
+            current_time = `${current_time.getHours()}:${current_time.getMinutes()}`
+        }
         let no_schedule_flag = false;
         for (let i of station_times) {
             if (i == null) {
