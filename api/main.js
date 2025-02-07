@@ -9,7 +9,6 @@ import TravelInfo from './TravelInfo.js'
 
 export async function find_best_route (sourcex , destinationx , type_day , time) {
     const datamanager = new Datamanager();
-    await datamanager.init();
     const travelInfo = new TravelInfo();
     const wordutils = new WordUtils(datamanager.stations_names);
     const lineManager = new LineManager(datamanager.line_lookup , datamanager.stations , datamanager.terminals);
@@ -170,4 +169,4 @@ export async function find_best_route (sourcex , destinationx , type_day , time)
 
 }
 
-find_best_route("امام حسین" , "ورزشگاه آزادی" , "عادی" , "" ).then(data => console.log(data));
+// find_best_route("امام حسین" , "ورزشگاه آزادی" , "عادی" , "" ).then(data => console.log(data));

@@ -150,11 +150,11 @@ class Routing {
     }
 }
 
-async function main() {
-    const datamanager = new DataManager();
-    let routing = new Routing(datamanager);
-    // console.log(datamanager.stations_line);
-    console.log(routing.shortestPath("نبرد", "قلهک"));
-}
-main()
+// async function main() {
+//     const datamanager = new DataManager();
+//     let routing = new Routing(datamanager);
+//     // console.log(datamanager.stations_line);
+//     console.log(routing.shortestPath("نبرد", "قلهک"));
+// }
+// main()
 export default Routing;
