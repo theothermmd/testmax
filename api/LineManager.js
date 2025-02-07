@@ -1,3 +1,7 @@
+
+import DataManager from "./DataManager.js";
+
+
 class LineManager {
 
     constructor (line_lookup , stations , terminals) {
@@ -48,4 +52,14 @@ class LineManager {
     }
 
 
-} export default LineManager;
+} 
+
+// async function main() {
+//     const datamanager = new DataManager();
+//     await datamanager.init();
+//     const lineManager = new LineManager(datamanager.line_lookup , datamanager.stations , datamanager.terminals)
+//     console.log(datamanager.line_lookup);
+// }
+// main()
+
+export default LineManager;

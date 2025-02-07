@@ -18,16 +18,23 @@ class Routing {
                 stations: { [`line_${i}`]: this.stations["stations"][`line_${i}`] },
             });
         }
-
+        let x = []
         for (let i = 1; i < 8; i++) {
             for (let j = 1; j < 8; j++) {
-                if (i !== j) {
+                x = this.stations["stations"][`line_${i}`].filter(n => this.stations["stations"][`line_${j}`].includes(n))
+                if (i !== j && x.length > 0) {
+                    
                     const key = `line_${i}toline_${j}`;
+
                     const stations = {
                         [`line_${i}`]: this.stations["stations"][`line_${i}`],
                         [`line_${j}`]: this.stations["stations"][`line_${j}`],
                     };
-                    this.graphs.linetoline[key] = this.create_graph({ stations });
+                    if (!( `line_${i}` in this.graphs.linetoline)) {
+                        this.graphs.linetoline[`line_${i}`] = {}
+                    }
+                    this.graphs.linetoline[`line_${i}`][`line_${j}`] = this.create_graph({ stations });
+                    
                 }
             }
         }
@@ -72,14 +79,16 @@ class Routing {
                 }
             } catch (error) {
                 console.log("Error in create_graph:", error);
-                console.log(data);
             }
         }
         return graph;
     }
+    find_intersection(arr1 , arr2) {
+        let x = arr1.filter(n => arr2.includes(n))
+        return x
+    }
 
     shortestPath(source, destination) {
-        let lineManager = new LineManager(this.dataManager.line_lookup, this.dataManager.stations);
         let wordUtils = new WordUtils(this.dataManager.stations_names);
 
         source = wordUtils.findClosestWord(source);
@@ -88,22 +97,38 @@ class Routing {
         if (!source || !destination) {
             throw new Error("ایستگاه مورد نظر یافت نشد");
         }
+        let source_line = this.dataManager.stations_line[source];
+        let destination_line = this.dataManager.stations_line[destination];
+        let y = this.find_intersection(source_line , destination_line)
 
-        let lineSource = lineManager.get_line_for_station(source);
-        let lineDest = lineManager.get_line_for_station(destination);
-
-        if (lineSource === lineDest) {
-            this.graphRouting = this.graphs.lines[lineSource];
+        if (y == 1) {
+            this.graphRouting = this.graphs.lines[source_line[0]];
             console.log("all1");
 
-            
-        } else if ( new Set( this.stations[ lineManager.get_line_for_station(source) ] ).has( this.stations[ lineManager.get_line_for_station(destination) ] ) ) {
-            this.graphRouting = this.graphs.linetoline[`${lineSource}to${lineDest}`];
-            console.log("all2");
         } else {
-            this.graphRouting = this.graphs.graph_all;
-            console.log("all3");
+            let flg = true;
+            for (let source_line_one of source_line) {
+    
+                if (flg) {
+    
+                    for (let destination_line_one of destination_line) {
+    
+                        if (source_line_one in this.graphs.linetoline) {
+    
+                            if (destination_line_one in this.graphs.linetoline[source_line_one]) {
+    
+                                this.graphRouting = this.graphs.linetoline[source_line_one][destination_line_one];
+                                flg = false;
+    
+                            }
+                        }
+                    }
+                }
+    
+            }
+         
         }
+
 
         let queue = [[source, [source]]];
         let visited = new Set();
@@ -127,10 +152,9 @@ class Routing {
 
 async function main() {
     const datamanager = new DataManager();
-    await datamanager.init();
     let routing = new Routing(datamanager);
-    console.log(routing.shortestPath("زمزم", "ورزشگاه آزادی"));
+    // console.log(datamanager.stations_line);
+    console.log(routing.shortestPath("نبرد", "قلهک"));
 }
-
-main();
+main()
 export default Routing;

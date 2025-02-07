@@ -22,7 +22,14 @@ class ScheduleManager {
                 return false;
 
             }
-            let next_time = this.parseTime(i);
+            try {
+                let next_time = this.parseTime(i);
+            }
+            catch {
+                console.log(i);
+                debugger;
+            }
+
             if (next_time > this.parseTime(current_time)) {
                 return `${next_time.getHours()}:${next_time.getMinutes().toString().length == 1 ? "0" + next_time.getMinutes() : next_time.getMinutes()}`;
             }

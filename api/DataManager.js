@@ -1,37 +1,29 @@
-import fetch from 'node-fetch';  
+import { stations , 
+    line_1_times , 
+    line_2_times , 
+    line_3_times , 
+    line_4_times , 
+    line_5_times , 
+    line_6_times , 
+    line_7_times , 
+    line_parand_times , 
 
-const BASE_URL = 'https://testmax.vercel.app';  
-
+ } from './data.js';
+ 
 class DataManager {
     constructor() {
-        this.stations = {};
-        this.stations_times = {};
-        this.line_names = ["line_1", "line_2", "line_3", "line_4", "line_5", "line_6", "line_7", "line_parand"];
+        this.stations = stations; 
+        this.stations_times = {"line_1" : line_1_times, "line_2" : line_2_times, "line_3" : line_3_times, "line_4" : line_4_times, "line_5" : line_5_times, "line_6" : line_6_times, "line_7" : line_7_times, "line_parand" : line_parand_times};
         this.stations_names = [];
         this.terminals = {};
         this.line_lookup = new Map();
-        this.init();
-    }
-
-    async init() {
-        this.stations = await this.loadStations('/stations.json'); 
-        for (let i of this.line_names) {
-            this.stations_times[i] = await this.loadStations(`/${i}.json`); 
-        }
-        this.loadnames();
-        this.loadline_loop();
-    }
-
-    async loadnames() {
+        this.stations_line = {}
         for (let line in this.stations['stations']) {
             this.terminals[line] = { [line]: [this.stations['stations'][line][0], this.stations['stations'][line].at(-1)] };
             for (let station of this.stations['stations'][line]) {
                 this.stations_names.push(station);
             }
         }
-    }
-
-    async loadline_loop() {
         for (const [line, stations] of Object.entries(this.stations['stations'])) {
             for (let i = 0; i < stations.length - 1; i++) {
                 const key1 = JSON.stringify([stations[i], stations[i + 1]]);
@@ -40,23 +32,18 @@ class DataManager {
                 this.line_lookup.set(key2, line);
             }
         }
-    }
-
-
-    async loadStations(filePath) {
-        try {
-            const url = `${BASE_URL}${filePath}`;  
-            const response = await fetch(url);
-            
-            if (!response.ok) {
-                throw new Error(`Failed to fetch file from URL: ${url}`);
+        for (let [line, stations] of Object.entries(this.stations['stations']))  {
+            for (let station of stations) {
+                if (!(station in this.stations_line)) {
+                    this.stations_line[station] = [];
+                    this.stations_line[station].push(line);
+                    continue
+                }
+                if (!(line in this.stations_line[station])) {
+                    this.stations_line[station].push(line);
+                }
+                
             }
-
-            const data = await response.json(); 
-            return data;
-        } catch (error) {
-            console.error('Error loading file from URL:', filePath, error);
-            return null;
         }
     }
 }

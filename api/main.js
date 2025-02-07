@@ -170,4 +170,4 @@ export async function find_best_route (sourcex , destinationx , type_day , time)
 
 }
 
-find_best_route("زمزم" , "ورزشگاه آزادی" , "عادی" , "" ).then(data => console.log(data));
+find_best_route("امام حسین" , "ورزشگاه آزادی" , "عادی" , "" ).then(data => console.log(data));
