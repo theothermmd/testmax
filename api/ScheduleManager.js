@@ -15,20 +15,13 @@ class ScheduleManager {
         if (typeof current_time  == Date) {
             current_time = `${current_time.getHours()}:${current_time.getMinutes()}`
         }
-        let no_schedule_flag = false;
         for (let i of station_times) {
             if (i == null) {
-                no_schedule_flag = true;
                 return false;
 
             }
-            try {
-                let next_time = this.parseTime(i);
-            }
-            catch {
-                console.log(i);
-                debugger;
-            }
+
+            let next_time = this.parseTime(i);
 
             if (next_time > this.parseTime(current_time)) {
                 return `${next_time.getHours()}:${next_time.getMinutes().toString().length == 1 ? "0" + next_time.getMinutes() : next_time.getMinutes()}`;
