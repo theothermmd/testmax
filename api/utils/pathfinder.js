@@ -69,15 +69,15 @@ class pathfinder {
             this.graphRouting = this.graphs.lines[source_line[0]];
 
         } else {
-            console.log("2")
+
             for (let i of source_line) {
-                // prompt(i)
+
                 if (i in this.graphs.linetoline) {
-                    // console.log("find1")
+
                     for (let j of destination_line) {
                         if (j in this.graphs.linetoline[i]) {
-                            console.log("find2")
                             this.graphRouting = this.graphs.linetoline[i][j];
+                            break
                         }
                     }
                 }
