@@ -8,7 +8,7 @@ import TravelInfo from './TravelInfo.js'
 
 
 
-function find_best_route (sourcex , destinationx , type_day , time) {
+export default function find_best_route (sourcex , destinationx , type_day , time) {
     const dataLoader = new DataLoader();
     const travelInfo = new TravelInfo();
     const wordutils = new WordUtils(dataLoader.stations_names);
@@ -170,5 +170,5 @@ function find_best_route (sourcex , destinationx , type_day , time) {
     };
 
 }
-export default find_best_route;
+
 // console.log(find_best_route("زمزم" , "کاشانی" , "عادی" , "10:30" ));
