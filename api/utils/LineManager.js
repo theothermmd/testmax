@@ -1,17 +1,17 @@
 
-import DataManager from "./DataManager.js";
+import DataLoader from "./dataloader.js";
 
 
 class LineManager {
 
-    constructor (line_lookup , stations , terminals) {
+    constructor (line_lookup , lines , terminals) {
         this.line_lookup = line_lookup;
-        this.stations = stations;
+        this.lines = lines;
         this.terminals = terminals;
 
     }
     find_terminal_direction(line, current_station, next_station) {
-        const stations = this.stations["stations"][line];
+        const stations = this.lines[line].get_stations_list();
         return stations.indexOf(current_station) < stations.indexOf(next_station) ? this.terminals[line][line][1] : this.terminals[line][line][0];
     }
     
@@ -20,7 +20,6 @@ class LineManager {
         if (stations2 != false) {
 
             const key = JSON.stringify([stations1, stations2]);
-            
             return this.line_lookup.get(key) || null;
 
         } 
@@ -53,13 +52,9 @@ class LineManager {
 
 
 } 
+// let db = new DataLoader();
+// const lineManager = new LineManager(db.line_lookup , db.lines, db.terminals)
+// console.log(lineManager.get_line_for_station("شهید بهشتی" , "مصلی امام خمینی"))
 
-// async function main() {
-//     const datamanager = new DataManager();
-//     await datamanager.init();
-//     const lineManager = new LineManager(datamanager.line_lookup , datamanager.stations , datamanager.terminals)
-//     console.log(datamanager.line_lookup);
-// }
-// main()
 
 export default LineManager;

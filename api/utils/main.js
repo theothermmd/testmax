@@ -1,18 +1,19 @@
-import Datamanager from "./DataManager.js";
+import DataLoader from "./dataloader.js";
 import WordUtils from './WordUtils.js'
 import LineManager from './LineManager.js'
-import Routing from './Routing.js'
+import pathfinder from './pathfinder.js'
 import ScheduleManager from './ScheduleManager.js'
 import TravelInfo from './TravelInfo.js'
 
 
 
-export async function find_best_route (sourcex , destinationx , type_day , time) {
-    const datamanager = new Datamanager();
+
+function find_best_route (sourcex , destinationx , type_day , time) {
+    const dataLoader = new DataLoader();
     const travelInfo = new TravelInfo();
-    const wordutils = new WordUtils(datamanager.stations_names);
-    const lineManager = new LineManager(datamanager.line_lookup , datamanager.stations , datamanager.terminals);
-    const routing = new Routing(datamanager); 
+    const wordutils = new WordUtils(dataLoader.stations_names);
+    const lineManager = new LineManager(dataLoader.line_lookup , dataLoader.lines , dataLoader.terminals);
+    const routing = new pathfinder(dataLoader); 
     const scheduleManager = new ScheduleManager();
 
     
@@ -60,7 +61,7 @@ export async function find_best_route (sourcex , destinationx , type_day , time)
 
             if (lineManager.get_line_for_station(route[i], route[i + 1]) != corrent_line) {
                 corrent_line = lineManager.get_line_for_station(route[i], route[i - 1]);
-                times = datamanager.stations_times[corrent_line][corrent_line][type_day][terminal_direction][route[i]]
+                times = dataLoader.lines[corrent_line].get_station_by_name(route[i]).get_time(type_day , terminal_direction);
                 now = scheduleManager.get_next_time(times , now);
 
                 corrent_line = lineManager.get_line_for_station(route[i], route[i + 1]);
@@ -104,10 +105,11 @@ export async function find_best_route (sourcex , destinationx , type_day , time)
                 }
                 corrent_line = lineManager.get_line_for_station(route[i], route[i + 1]);
 
-                times = datamanager.stations_times[corrent_line][corrent_line][type_day][terminal_direction][route[i]]
 
-                
+                times = dataLoader.lines[corrent_line].get_station_by_name(route[i]).get_time(type_day , wordutils.correctPersianText(terminal_direction));
+
                 now = scheduleManager.get_next_time(times , now);
+
                 if (i ==0) {
 
                     const next_temp = scheduleManager.parseTime(now) - start_time;
@@ -129,7 +131,7 @@ export async function find_best_route (sourcex , destinationx , type_day , time)
 
             terminal_direction = lineManager.find_terminal_direction(corrent_line, route[i - 1], route[i]);
             let x = lineManager.get_line_for_station(route[i], route[i - 1]);
-            times = datamanager.stations_times[x][x][type_day][terminal_direction][route[i]];
+            times = dataLoader.lines[corrent_line].get_station_by_name(route[i]).get_time(type_day , wordutils.correctPersianText(terminal_direction));
             now = scheduleManager.get_next_time(times , now);
             travelInfo.add_overview_entry(
                 overview,
@@ -169,4 +171,4 @@ export async function find_best_route (sourcex , destinationx , type_day , time)
 
 }
 
-// find_best_route("امام حسین" , "ورزشگاه آزادی" , "عادی" , "" ).then(data => console.log(data));
+// console.log(find_best_route("زمزم" , "کاشانی" , "عادی" , "10:30" ));

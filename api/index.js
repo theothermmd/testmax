@@ -1,7 +1,7 @@
 "use strict";
 
 import Fastify from "fastify";
-import {find_best_route} from "./main.js";
+import {find_best_route} from "./utils/main.js";
 
 const app = Fastify({
   logger: true,
