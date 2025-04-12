@@ -8,7 +8,7 @@ import TravelInfo from './TravelInfo.js'
 
 
 
-export default function find_best_route (sourcex , destinationx , type_day , time) {
+export function find_best_route (sourcex , destinationx , type_day , time) {
     const dataLoader = new DataLoader();
     const travelInfo = new TravelInfo();
     const wordutils = new WordUtils(dataLoader.stations_names);
