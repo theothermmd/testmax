@@ -170,5 +170,5 @@ function find_best_route (sourcex , destinationx , type_day , time) {
     };
 
 }
-
+export default find_best_route;
 // console.log(find_best_route("زمزم" , "کاشانی" , "عادی" , "10:30" ));
