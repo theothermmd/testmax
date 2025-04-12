@@ -80082,7 +80082,7 @@ const db = {
             Time_interval_to_the_next_station: 0,
         },
         "دکتر حبیب الله": {
-            translations: { fa: "دکتر حبیب‌الله", en: "Doctor Habibollah" },
+            translations: { fa: "دکتر حبیب الله", en: "Doctor Habibollah" },
             address: "خیابان آزادی - نرسیده به خیابان دکتر حبیب اله",
             lines: [4],
             location: { lat: "35.700653", lon: "51.356079" },

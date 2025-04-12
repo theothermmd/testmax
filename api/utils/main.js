@@ -105,8 +105,10 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
                 }
                 corrent_line = lineManager.get_line_for_station(route[i], route[i + 1]);
 
-
+                
                 times = dataLoader.lines[corrent_line].get_station_by_name(route[i]).get_time(type_day , wordutils.correctPersianText(terminal_direction));
+
+                
 
                 now = scheduleManager.get_next_time(times , now);
 
@@ -171,4 +173,4 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
 
 }
 
-// console.log(find_best_route("زمزم" , "کاشانی" , "عادی" , "10:30" ));
+console.log(find_best_route("صادقیقه" , "تیترشهر" , "عادی" , "10:30" ));
