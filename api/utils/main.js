@@ -111,8 +111,9 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
                 
 
                 
-                
+
                 now = scheduleManager.get_next_time(times , now);
+
 
                 
 
@@ -177,4 +178,4 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
 
 }
 
-console.log(find_best_route("لاله" , "تیترشهر" , "عادی" , "10:30" ));
+console.log(find_best_route("زمزم" , "پرند" , "عادی" , "10:30" ));
