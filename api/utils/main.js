@@ -5,9 +5,6 @@ import pathfinder from './pathfinder.js'
 import ScheduleManager from './ScheduleManager.js'
 import TravelInfo from './TravelInfo.js'
 
-
-
-
 export function find_best_route (sourcex , destinationx , type_day , time) {
     const dataLoader = new DataLoader();
     const travelInfo = new TravelInfo();
@@ -81,7 +78,12 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
                     lineManager.get_line_for_station(route[i], route[i + 1]).replace("line_", ""),
                     terminal_direction
                 );
-                now = scheduleManager.get_next_time(times , now);
+                                try {
+                    now = scheduleManager.get_next_time(times , now);
+
+                } catch {
+                    prompt(times)
+                }
                 travelInfo.add_overview_entry(
                     overview,
                     route[i],
@@ -111,11 +113,12 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
                 
 
                 
+                try {
+                    now = scheduleManager.get_next_time(times , now);
 
-                now = scheduleManager.get_next_time(times , now);
-
-
-                
+                } catch {
+                    prompt(times)
+                }
 
 
                 
@@ -143,6 +146,7 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
             let x = lineManager.get_line_for_station(route[i], route[i - 1]);
             times = dataLoader.lines[corrent_line].get_station_by_name(route[i]).get_time(type_day , wordutils.correctPersianText(terminal_direction));
             now = scheduleManager.get_next_time(times , now);
+
             travelInfo.add_overview_entry(
                 overview,
                 route[i],
@@ -163,6 +167,7 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
         }
     }
     const travel_duration_ms = scheduleManager.parseTime(now) - start_time;
+
     const travel_hours = Math.floor(travel_duration_ms / (1000 * 60 * 60)); 
     const travel_minutes = Math.floor((travel_duration_ms % (1000 * 60 * 60)) / (1000 * 60));
 
@@ -181,4 +186,4 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
 
 }
 
-// console.log(find_best_route("پرند" , "زمزم" , "عادی" , "10:30" ));
+console.log(find_best_route("زمزم" , "پرند" , "عادی" , "" ));
