@@ -117,6 +117,9 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
 
                 
 
+
+                
+
                 if (i ==0) {
 
                     const next_temp = scheduleManager.parseTime(now) - start_time;
@@ -178,4 +181,4 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
 
 }
 
-console.log(find_best_route("زمزم" , "پرند" , "عادی" , "10:30" ));
+console.log(find_best_route("پرند" , "زمزم" , "عادی" , "10:30" ));
