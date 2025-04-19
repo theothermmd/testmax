@@ -181,4 +181,4 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
 
 }
 
-console.log(find_best_route("پرند" , "زمزم" , "عادی" , "10:30" ));
+// console.log(find_best_route("پرند" , "زمزم" , "عادی" , "10:30" ));
