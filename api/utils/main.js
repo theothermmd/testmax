@@ -4,6 +4,7 @@ import LineManager from './LineManager.js'
 import pathfinder from './pathfinder.js'
 import ScheduleManager from './ScheduleManager.js'
 import TravelInfo from './TravelInfo.js'
+import timesdb from './timesdb.js'
 
 export function find_best_route (sourcex , destinationx , type_day , time) {
     const dataLoader = new DataLoader();
@@ -28,7 +29,7 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
     }
     let now = "";
     let start_time = "";
-    if (time == '' || time == undefined) {
+    if (time === '' || time === undefined) {
         now = new Date();
         now = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Tehran' }));
         start_time = new Date(now);
@@ -56,13 +57,14 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
     for (let i = 0; i < route.length; i++ ) {
         if (i + 1 < route.length) {
 
-            if (lineManager.get_line_for_station(route[i], route[i + 1]) != corrent_line) {
+            if (lineManager.get_line_for_station(route[i], route[i + 1]) !== corrent_line) {
                 corrent_line = lineManager.get_line_for_station(route[i], route[i - 1]);
-                times = dataLoader.lines[corrent_line].get_station_by_name(route[i]).get_time(type_day , terminal_direction);
+                times = dataLoader.lines[corrent_line].get_station_by_name(route[i]).get_time(type_day , wordutils.correctPersianText(terminal_direction));
                 now = scheduleManager.get_next_time(times , now);
 
                 corrent_line = lineManager.get_line_for_station(route[i], route[i + 1]);
                 terminal_direction = lineManager.find_terminal_direction(corrent_line, route[i], route[i + 1]);
+
                 travelInfo.add_overview_entry(
                     overview,
                     route[i],
@@ -78,12 +80,9 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
                     lineManager.get_line_for_station(route[i], route[i + 1]).replace("line_", ""),
                     terminal_direction
                 );
-                                try {
-                    now = scheduleManager.get_next_time(times , now);
 
-                } catch {
-                    prompt(times)
-                }
+                now = scheduleManager.get_next_time(times , now);
+
                 travelInfo.add_overview_entry(
                     overview,
                     route[i],
@@ -95,7 +94,7 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
                 travel_cost += 2
             }
             else {
-                if (i == 0) {
+                if (i === 0) {
                     travelInfo.add_travel_guide_entry(
                         travel_guide,
                         "source",
@@ -108,22 +107,27 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
                 corrent_line = lineManager.get_line_for_station(route[i], route[i + 1]);
 
                 
+
                 times = dataLoader.lines[corrent_line].get_station_by_name(route[i]).get_time(type_day , wordutils.correctPersianText(terminal_direction));
 
-                
 
                 
+
                 try {
-                    now = scheduleManager.get_next_time(times , now);
 
+                    now = scheduleManager.get_next_time(times , now);
                 } catch {
-                    prompt(times)
+                    prompt(corrent_line)
+                    prompt(terminal_direction)
+                    prompt(route[i])
                 }
 
 
+
+
                 
 
-                if (i ==0) {
+                if (i === 0) {
 
                     const next_temp = scheduleManager.parseTime(now) - start_time;
                     const next_temp_m = Math.floor((next_temp % (1000 * 60 * 60)) / (1000 * 60));
@@ -177,7 +181,7 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
         'isrouting' : true,
         "fail" : false,
         "route": overview,
-        "travel_duration": `${travel_hours}:${travel_minutes.toString().length == 1 ? "0" + travel_minutes : travel_minutes}`,
+        "travel_duration": `${travel_hours}:${travel_minutes.toString().length === 1 ? "0" + travel_minutes : travel_minutes}`,
         "travel_cost": travelInfo.check_cost(travel_cost),
         "travel_guide": travel_guide,
         "next_train": next_train,
@@ -186,4 +190,4 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
 
 }
 
-console.log(find_best_route("زمزم" , "پرند" , "عادی" , "" ));
+console.log(find_best_route("زمزم" , "پرند" , "عادی" , "10:30" ));

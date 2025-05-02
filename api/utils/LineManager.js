@@ -1,5 +1,4 @@
 
-import DataLoader from "./dataloader.js";
 
 
 class LineManager {
@@ -17,7 +16,7 @@ class LineManager {
     
     get_line_for_station(stations1 , stations2 = false) {
 
-        if (stations2 != false) {
+        if (stations2 !== false) {
 
             const key = JSON.stringify([stations1, stations2]);
             return this.line_lookup.get(key) || null;
@@ -28,7 +27,7 @@ class LineManager {
 
             for (const [line , stations] of Object.entries(this.stations['stations'])) {
                 for (let i = 0; i < stations.length - 1 ; i++) {
-                    if (stations1 == stations[i]) {
+                    if (stations1 === stations[i]) {
                         return line;
                     }
                 }
@@ -40,14 +39,18 @@ class LineManager {
     get_line_color(line_name) {
         const line_colors = {
             "line_1": "قرمز",
+            "line_parand": "قرمز",
             "line_2": "آبی",
             "line_3": "آبی آسمانی",
             "line_4": "زرد",
+            "line_mehrabad": "زرد",
             "line_5": "سبز",
+            "line_hashtgerd": "سبز",
             "line_6": "صورتی",
             "line_7": "بنفش",
+
         }
-        return line_colors[line_name] || "Unknown";
+        return line_colors["line_" + line_name] || "Unknown";
     }
 
 

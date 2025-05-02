@@ -1,4 +1,4 @@
-import DataLoader from './dataloader.js'
+
 
 import WordUtils from './WordUtils.js'
 class pathfinder {
@@ -65,7 +65,7 @@ class pathfinder {
         let destination_line = this.stations_line[destination];
         let y = this.find_intersection(source_line , destination_line)
         this.graphRouting = {}
-        if (y.length == 1) {
+        if (y.length === 1) {
             this.graphRouting = this.graphs.lines[source_line[0]];
 
         } else {

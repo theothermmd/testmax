@@ -12,7 +12,7 @@ class ScheduleManager {
     }
     
     get_next_time (station_times, current_time) {
-        if (typeof current_time  == Date) {
+        if (typeof current_time === Date) {
             current_time = `${current_time.getHours()}:${current_time.getMinutes()}`
         }
         for (let i of station_times) {
@@ -24,7 +24,7 @@ class ScheduleManager {
             let next_time = this.parseTime(i);
 
             if (next_time > this.parseTime(current_time)) {
-                return `${next_time.getHours()}:${next_time.getMinutes().toString().length == 1 ? "0" + next_time.getMinutes() : next_time.getMinutes()}`;
+                return `${next_time.getHours()}:${next_time.getMinutes().toString().length === 1 ? "0" + next_time.getMinutes() : next_time.getMinutes()}`;
             }
 
         }

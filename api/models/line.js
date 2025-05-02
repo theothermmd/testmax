@@ -31,7 +31,7 @@ class Line {
 
     get_station_by_name (name) {
         for (let i of this.stations) {
-            if (i.get_persian_name() == name) {
+            if (i.get_persian_name() === name) {
                 return i
             }
         }

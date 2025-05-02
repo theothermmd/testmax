@@ -20,15 +20,15 @@ class TravelInfo {
     }
     add_travel_guide_entry(travel_guide, flag, station_name, line_name, terminal) {
 
-        if (flag.toLocaleLowerCase() == "source") {
+        if (flag.toLocaleLowerCase() === "source") {
             travel_guide.push(`در ایستگاه ${station_name} وارد خط ${line_name} شوید و به سمت ${terminal} سوار مترو شوید.`)
         }
 
-        else if (flag.toLocaleLowerCase() == "change") {
+        else if (flag.toLocaleLowerCase() === "change") {
             travel_guide.push(`در ایستگاه ${station_name} از مترو پیاده شوید. سپس وارد خط ${line_name} شده و به سمت ${terminal} سوار مترو شوید.`)
         }
 
-        else if (flag.toLocaleLowerCase() == "destination") {
+        else if (flag.toLocaleLowerCase() === "destination") {
             travel_guide.push(`در ایستگاه ${station_name} از مترو پیاده شوید و از ایستگاه خارج شوید. `)
         }
 
