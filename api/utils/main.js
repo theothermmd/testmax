@@ -4,7 +4,6 @@ import LineManager from './LineManager.js'
 import pathfinder from './pathfinder.js'
 import ScheduleManager from './ScheduleManager.js'
 import TravelInfo from './TravelInfo.js'
-import timesdb from './timesdb.js'
 
 export function find_best_route (sourcex , destinationx , type_day , time) {
     const dataLoader = new DataLoader();

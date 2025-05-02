@@ -7,9 +7,6 @@ const app = Fastify({
   logger: true,
 })
 
-app.get('/', function (request, reply) {
-  reply.send({ hello: 'world' })
-})
 
 app.post('/route', async (request) => {
     const { source, destination , type_day , time } = request.body;
