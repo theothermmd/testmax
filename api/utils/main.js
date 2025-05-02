@@ -18,13 +18,13 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
     const source = wordutils.findClosestWord(sourcex);
     const destination = wordutils.findClosestWord(destinationx);
     if (source === destination) {
-        return {"status": true , 'isrouting' : "yes"}
+        return {"status": false , 'isrouting' : false , 'code' : 0 , 'message' : "The origin and destination station cannot be one."}
     }
     if (!['عادی', 'پنجشنبه', 'جمعه'].includes(type_day)) {
-        return {"status": true , 'isrouting' : false};
+        return {"status": false , 'isrouting' : false , 'code' : 1 , 'message'  : "The appointed day is invalid. Should be between ordinary and Thursday and Friday"}
     }
     if (source === null || source === undefined || destination === null || destination === undefined) {
-        return {"status": true , 'isrouting' : "no"};
+        return {"status": false , 'isrouting' : false , 'code' : 2 , 'message' : "The origin or destination station could not be found."}
     }
     let now = "";
     let start_time = "";
@@ -43,7 +43,7 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
     const endTime = scheduleManager.parseTime("23:00");
     
     if (now.getTime() < startTime.getTime() || now.getTime() > endTime.getTime()) {
-        return {"status": true , 'isrouting' : false , 'message' : "no_service"};
+        return {"status": true , 'isrouting' : false , 'code' : 3 , 'message' : "no_service"};
     }
     const route = routing.shortestPath(source, destination);
     let corrent_line = lineManager.get_line_for_station(route[0], route[1]);
@@ -60,7 +60,7 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
                 corrent_line = lineManager.get_line_for_station(route[i], route[i - 1]);
                 times = dataLoader.lines[corrent_line].get_station_by_name(route[i]).get_time(type_day , wordutils.correctPersianText(terminal_direction));
                 now = scheduleManager.get_next_time(times , now);
-
+                if (now == false) { return {"status": false , 'isrouting' : false , 'code' : 4 ,  'message' : "You don't get to the destination."} }
                 corrent_line = lineManager.get_line_for_station(route[i], route[i + 1]);
                 terminal_direction = lineManager.find_terminal_direction(corrent_line, route[i], route[i + 1]);
 
@@ -81,7 +81,7 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
                 );
 
                 now = scheduleManager.get_next_time(times , now);
-
+                if (now == false) { return {"status": false , 'isrouting' : false , 'code' : 4 ,  'message' : "You don't get to the destination."} }
                 travelInfo.add_overview_entry(
                     overview,
                     route[i],
@@ -109,22 +109,10 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
 
                 times = dataLoader.lines[corrent_line].get_station_by_name(route[i]).get_time(type_day , wordutils.correctPersianText(terminal_direction));
 
+                now = scheduleManager.get_next_time(times , now);
+                if (now == false) { return {"status": false , 'isrouting' : false , 'code' : 4 ,  'message' : "You don't get to the destination."} }
+                    
 
-                
-
-                try {
-
-                    now = scheduleManager.get_next_time(times , now);
-                } catch {
-                    prompt(corrent_line)
-                    prompt(terminal_direction)
-                    prompt(route[i])
-                }
-
-
-
-
-                
 
                 if (i === 0) {
 
@@ -146,9 +134,9 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
         else {
 
             terminal_direction = lineManager.find_terminal_direction(corrent_line, route[i - 1], route[i]);
-            let x = lineManager.get_line_for_station(route[i], route[i - 1]);
             times = dataLoader.lines[corrent_line].get_station_by_name(route[i]).get_time(type_day , wordutils.correctPersianText(terminal_direction));
             now = scheduleManager.get_next_time(times , now);
+            if (now == false) { return {"status": false , 'isrouting' : false , 'code' : 4 ,  'message' : "You don't get to the destination."} }
 
             travelInfo.add_overview_entry(
                 overview,
@@ -189,4 +177,4 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
 
 }
 
-console.log(find_best_route("زمزم" , "پرند" , "عادی" , "10:30" ));
+console.log(find_best_route("زمزم" , "پرند" , "عادی" , "21:30" ));
