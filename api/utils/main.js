@@ -108,7 +108,6 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
                 
 
                 times = dataLoader.lines[corrent_line].get_station_by_name(route[i]).get_time(type_day , wordutils.correctPersianText(terminal_direction));
-
                 now = scheduleManager.get_next_time(times , now);
                 if (now == false) { return {"status": false , 'isrouting' : false , 'code' : 4 ,  'message' : "You don't get to the destination."} }
                     
@@ -177,4 +176,4 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
 
 }
 
-console.log(find_best_route("زمزم" , "پرند" , "عادی" , "21:30" ));
+console.log(find_best_route("زمزم" , "سلیمانی" , "عادی" , "10:30" ));

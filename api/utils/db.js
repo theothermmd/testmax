@@ -24831,8 +24831,8 @@ const db = {
       "Time_interval_to_the_previous_station": 0,
       "Time_interval_to_the_next_station": 0
     },
-    "شاهد - باقرشهر": {
-      "translations": { "fa": "شاهد - باقرشهر", "en": "Shahed - BagherShahr" },
+    "شاهد - باقر شهر": {
+      "translations": { "fa": "شاهد - باقر شهر", "en": "Shahed - BagherShahr" },
       "address": "اتوبان شهید کاظمی، روبه روی درب شمالی بهشت زهرا",
       "lines": [1, "parand"],
       "location": { "lat": "35.546998", "lon": "51.382606" },
@@ -27728,8 +27728,8 @@ const db = {
     }
   },
   "parand": {
-    "شاهد - باقرشهر": {
-      "translations": { "fa": "شاهد - باقرشهر", "en": "Shahed - BagherShahr" },
+    "شاهد - باقر شهر": {
+      "translations": { "fa": "شاهد - باقر شهر", "en": "Shahed - BagherShahr" },
       "address": "اتوبان شهید کاظمی، روبه روی درب شمالی بهشت زهرا",
       "lines": [1, "parand"],
       "location": { "lat": "35.546998", "lon": "51.382606" },
