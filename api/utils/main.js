@@ -19,14 +19,14 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
         return {"status": false , 'isrouting' : false , 'code' : 1 , 'message'  : "The appointed day is invalid. Should be between ordinary and Thursday and Friday"}
     }
     if (source === null || source === undefined || destination === null || destination === undefined) {
-        if (source === null || source === undefined || destination === null || destination === undefined) {
-            return {"status": false , 'isrouting' : false , 'code' : 2 , 'message' : "The origin or destination station could not be found."}
+        if ((source === null || source === undefined) && (destination === null || destination === undefined)) {
+            return { status: false, isrouting: false, code: 2, message: "The origin or destination station could not be found." }
         }
-        else if ((source === null || source === undefined) && (destination !== null || destination !== undefined)) {
-            return {"status": false , 'isrouting' : false , 'code' : 3 , 'message' : "The origin station could not be found."}
+        else if (source === null || source === undefined) {
+            return { status: false, isrouting: false, code: 3, message: "The origin station could not be found." }
         }
-        else if ((source !== null || source !== undefined) && (destination === null || destination === undefined)) {
-            return {"status": false , 'isrouting' : false , 'code' : 4 , 'message' : "The destination station could not be found."}
+        else if (destination === null || destination === undefined) {
+            return { status: false, isrouting: false, code: 4, message: "The destination station could not be found." }
         }
     }
 
