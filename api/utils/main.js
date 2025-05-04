@@ -6,14 +6,9 @@ import ScheduleManager from './ScheduleManager.js'
 import TravelInfo from './TravelInfo.js'
 
 export function find_best_route (sourcex , destinationx , type_day , time) {
-    const dataLoader = new DataLoader();
-    const travelInfo = new TravelInfo();
-    const wordutils = new WordUtils(dataLoader.stations_names);
-    const lineManager = new LineManager(dataLoader.line_lookup , dataLoader.lines , dataLoader.terminals);
-    const routing = new pathfinder(dataLoader); 
-    const scheduleManager = new ScheduleManager();
-
     
+    const dataLoader = new DataLoader();
+    const wordutils = new WordUtils(dataLoader.stations_names);
 
     const source = wordutils.findClosestWord(sourcex);
     const destination = wordutils.findClosestWord(destinationx);
@@ -24,8 +19,26 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
         return {"status": false , 'isrouting' : false , 'code' : 1 , 'message'  : "The appointed day is invalid. Should be between ordinary and Thursday and Friday"}
     }
     if (source === null || source === undefined || destination === null || destination === undefined) {
-        return {"status": false , 'isrouting' : false , 'code' : 2 , 'message' : "The origin or destination station could not be found."}
+        if (source === null || source === undefined || destination === null || destination === undefined) {
+            return {"status": false , 'isrouting' : false , 'code' : 2 , 'message' : "The origin or destination station could not be found."}
+        }
+        else if ((source === null || source === undefined) && (destination !== null || destination !== undefined)) {
+            return {"status": false , 'isrouting' : false , 'code' : 3 , 'message' : "The origin station could not be found."}
+        }
+        else if ((source !== null || source !== undefined) && (destination === null || destination === undefined)) {
+            return {"status": false , 'isrouting' : false , 'code' : 4 , 'message' : "The destination station could not be found."}
+        }
     }
+
+
+    const travelInfo = new TravelInfo();
+    const lineManager = new LineManager(dataLoader.line_lookup , dataLoader.lines , dataLoader.terminals);
+    const routing = new pathfinder(dataLoader); 
+    const scheduleManager = new ScheduleManager();
+
+    
+
+
     let now = "";
     let start_time = "";
     if (time === '' || time === undefined) {
@@ -109,7 +122,7 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
 
                 times = dataLoader.lines[corrent_line].get_station_by_name(route[i]).get_time(type_day , wordutils.correctPersianText(terminal_direction));
                 now = scheduleManager.get_next_time(times , now);
-                if (now == false) { return {"status": false , 'isrouting' : false , 'code' : 4 ,  'message' : "You don't get to the destination."} }
+                if (now == false) { return {"status": false , 'isrouting' : false , 'code' : 5 ,  'message' : "You don't get to the destination."} }
                     
 
 
@@ -135,7 +148,7 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
             terminal_direction = lineManager.find_terminal_direction(corrent_line, route[i - 1], route[i]);
             times = dataLoader.lines[corrent_line].get_station_by_name(route[i]).get_time(type_day , wordutils.correctPersianText(terminal_direction));
             now = scheduleManager.get_next_time(times , now);
-            if (now == false) { return {"status": false , 'isrouting' : false , 'code' : 4 ,  'message' : "You don't get to the destination."} }
+            if (now == false) { return {"status": false , 'isrouting' : false , 'code' : 5 ,  'message' : "You don't get to the destination."} }
 
             travelInfo.add_overview_entry(
                 overview,
