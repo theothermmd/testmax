@@ -40497,8 +40497,8 @@ const db = {
       "Time_interval_to_the_previous_station": 0,
       "Time_interval_to_the_next_station": 0
     },
-    "امام خمینی": {
-      "translations": { "fa": "امام خمینی", "en": "Imam Khomeini" },
+    "(ره) امام خمینی": {
+      "translations": { "fa": "(ره) امام خمینی", "en": "Imam Khomeini" },
       "address": "میدان امام خمینی (ره)",
       "lines": [1, 2],
       "location": { "lat": "35.686433", "lon": "51.421171" },

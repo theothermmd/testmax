@@ -190,4 +190,4 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
 
 }
 
-console.log(find_best_route("دروازه دولت" , "میدان انقلاب اسلامی" , "عادی" , "10:30" ));
+// console.log(find_best_route("سرسبز" , "قلک" , "عادی" , "10:30" ));

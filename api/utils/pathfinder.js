@@ -29,7 +29,9 @@ class pathfinder {
         for (let line_name_1 of lines_names) {
             for (let line_name_2 of lines_names) {
                 x = this.lines[line_name_1].get_stations_list().filter(n => this.lines[line_name_2].get_stations_list().includes(n))
+                
                 if (line_name_1 !== line_name_2 && x.length > 0) {
+                    
 
                     const stations = {
                         [line_name_1]: this.lines[line_name_1].get_stations_list(),
@@ -70,15 +72,12 @@ class pathfinder {
             this.graphRouting = this.graphs.lines[lines];
 
         } else {
-            
             for (let i of source_line) {
 
                 if (i in this.graphs.linetoline) {
 
                     for (let j of destination_line) {
-                        console.log("ji1")
                         if (j in this.graphs.linetoline[i]) {
-                            console.log("ji")
                             this.graphRouting = this.graphs.linetoline[i][j];
                             
                         }
