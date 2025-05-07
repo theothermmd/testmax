@@ -147,4 +147,4 @@ function exitWithMessage(status, isRouting, code, message) {
 }
 
 
-console.log(find_best_route("سرسبز" , "قلک" , "عادی" , "10:30" ));
+// console.log(find_best_route("سرسبز" , "قلک" , "عادی" , "10:30" ));
