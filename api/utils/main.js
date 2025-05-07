@@ -59,7 +59,9 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
         return {"status": true , 'isrouting' : false , 'code' : 3 , 'message' : "no_service"};
     }
     const route = routing.shortestPath(source, destination);
+    prompt(route)
     let corrent_line = lineManager.get_line_for_station(route[0], route[1]);
+    
     let terminal_direction= lineManager.find_terminal_direction(corrent_line, route[0], route[1]);
     let overview = [];
     let travel_guide = [];
@@ -189,4 +191,4 @@ export function find_best_route (sourcex , destinationx , type_day , time) {
 
 }
 
-console.log(find_best_route("زمزم" , "سلیمانی" , "عادی" , "10:30" ));
+console.log(find_best_route("دروازه دولت" , "میدان انقلاب اسلامی" , "عادی" , "10:30" ));

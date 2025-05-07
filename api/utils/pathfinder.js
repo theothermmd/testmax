@@ -53,31 +53,34 @@ class pathfinder {
     }
 
     shortestPath(source, destination) {
-        let wordUtils = new WordUtils(this.stations_names);
+        // let wordUtils = new WordUtils(this.stations_names);
 
-        source = wordUtils.findClosestWord(source);
-        destination = wordUtils.findClosestWord(destination);
+        // source = wordUtils.findClosestWord(source);
+        // destination = wordUtils.findClosestWord(destination);
 
-        if (!source || !destination) {
-            throw new Error("ایستگاه مورد نظر یافت نشد");
-        }
+        // if (!source || !destination) {
+        //     throw new Error("ایستگاه مورد نظر یافت نشد");
+        // }
         let source_line = this.stations_line[source];
         let destination_line = this.stations_line[destination];
         let y = this.find_intersection(source_line , destination_line)
         this.graphRouting = {}
         if (y.length === 1) {
-            this.graphRouting = this.graphs.lines[source_line[0]];
+            let lines = source_line.filter(n => n in destination_line)
+            this.graphRouting = this.graphs.lines[lines];
 
         } else {
-
+            
             for (let i of source_line) {
 
                 if (i in this.graphs.linetoline) {
 
                     for (let j of destination_line) {
+                        console.log("ji1")
                         if (j in this.graphs.linetoline[i]) {
+                            console.log("ji")
                             this.graphRouting = this.graphs.linetoline[i][j];
-                            break
+                            
                         }
                     }
                 }
